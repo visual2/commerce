@@ -1,4 +1,4 @@
-package com.galid.commerce.domains.member.domain;
+package com.galid.commerce.domains.delivery.domain;
 
 import com.galid.commerce.common.config.logging.BaseEntity;
 import com.galid.commerce.common.config.value.Address;
@@ -10,21 +10,26 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name="members")
+@Table(name = "delivery")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MemberEntity extends BaseEntity {
+public class DeliveryEntity extends BaseEntity {
     @Id
-    @GeneratedValue
-    private Long id;
-    private String name;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long deliveryId;
     @Embedded
     private Address address;
 
+    @Enumerated(value = EnumType.STRING)
+    private DeliveryStatus status;
+
     @Builder
-    private MemberEntity(String name, Address address) {
-        this.name = name;
+    public DeliveryEntity(Address address) {
         this.address = address;
+        this.status = DeliveryStatus.READY_STATUS;
     }
+
+
+
 
 }
